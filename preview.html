@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Düğün Geri Sayımı</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      overflow: hidden;
+
+      /* iPhone sorunsuz arka plan */
+      background: linear-gradient(135deg, #1f1020, #4b1d3f, #ff4d8d);
+    }
+
+    .container {
+      text-align: center;
+      background: rgba(0,0,0,0.35);
+      padding: 30px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 32px;
+    }
+
+    .subtitle {
+      margin-top: 10px;
+      font-size: 16px;
+    }
+
+    .date {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #ff9ecb;
+    }
+
+    .countdown {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .box {
+      background: rgba(255,255,255,0.15);
+      padding: 15px;
+      border-radius: 15px;
+    }
+
+    .value {
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .label {
+      font-size: 12px;
+      opacity: 0.8;
+    }
+
+    /* kalp animasyonu */
+    .heart {
+      position: absolute;
+      bottom: -20px;
+      font-size: 20px;
+      animation: float 6s linear infinite;
+      color: #ff6fa5;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-100vh); opacity: 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Sema ❤️ Ali</h1>
+    <div class="subtitle">En güzel güne geri sayım 💍</div>
+    <div class="date">12 Temmuz 2026 • 18:00</div>
+
+    <div class="countdown">
+      <div class="box"><div class="value" id="days">0</div><div class="label">Gün</div></div>
+      <div class="box"><div class="value" id="hours">0</div><div class="label">Saat</div></div>
+      <div class="box"><div class="value" id="minutes">0</div><div class="label">Dakika</div></div>
+      <div class="box"><div class="value" id="seconds">0</div><div class="label">Saniye</div></div>
+    </div>
+  </div>
+
+  <script>
+    const weddingDate = new Date("2026-07-12T18:00:00");
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = weddingDate - now;
+
+      if (diff <= 0) return;
+
+      const total = Math.floor(diff / 1000);
+      const days = Math.floor(total / 86400);
+      const hours = Math.floor((total % 86400) / 3600);
+      const minutes = Math.floor((total % 3600) / 60);
+      const seconds = total % 60;
+
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = hours;
+      document.getElementById("minutes").textContent = minutes;
+      document.getElementById("seconds").textContent = seconds;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    // kalpler
+    setInterval(() => {
+      const heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.textContent = "❤️";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 6000);
+    }, 500);
+  </script>
+
+</body>
+</html>
